@@ -19,13 +19,16 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// 🔹 Corrige le problème d'IP derrière proxy (Render, Heroku, etc.)
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, 
+  max: 100,
   message: 'Trop de requêtes depuis cette IP, réessayez plus tard.'
 });
 app.use('/api/', limiter);

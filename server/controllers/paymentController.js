@@ -135,23 +135,28 @@ export const generateReceipt = async (req, res) => {
     </html>
     `;
 
-     const template = handlebars.compile(receiptTemplate);
+    const template = handlebars.compile(receiptTemplate);
     const html = template({
       ...payment.toObject(),
       paymentDate: payment.paymentDate.toLocaleDateString('fr-FR')
     });
 
-    const browser = await puppeteer.launch({ headless: 'new' });
+    // ⚠️ Puppeteer configuré pour Render
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
     const page = await browser.newPage();
     await page.setContent(html);
     let pdf = await page.pdf({ format: 'A4' });
     await browser.close();
-    // Vérification et conversion
+
     if (!Buffer.isBuffer(pdf)) {
       pdf = Buffer.from(pdf);
     }
 
-     res.set({
+    res.set({
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename=recu-${payment.receiptNumber}.pdf`
     });
@@ -162,6 +167,7 @@ export const generateReceipt = async (req, res) => {
     res.status(500).json({ message: 'Erreur lors de la génération du reçu' });
   }
 };
+
 
 export const getDailyReport = async (req, res) => {
   try {
