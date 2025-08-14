@@ -39,11 +39,11 @@ const Login: React.FC = () => {
             <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <Baby className="w-8 h-8 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900">Garderie Management</h2>
+            <h2 className="text-3xl font-bold text-gray-900">Garderie Toup'Ti</h2>
             <p className="text-gray-600 mt-2">Connectez-vous à votre compte</p>
           </div>
 
-          {/* Demo credentials */}
+          {/* Demo credentials 
           <div className="mb-6 p-4 bg-blue-50 rounded-lg">
             <h3 className="text-sm font-medium text-blue-800 mb-2">Comptes de démonstration :</h3>
             <div className="text-sm text-blue-700 space-y-1">
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
               <p><strong>Tata:</strong> tata@garderie.com / 1234</p>
             </div>
           </div>
-
+            */}
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
